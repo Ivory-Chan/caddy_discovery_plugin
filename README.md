@@ -18,7 +18,7 @@ go get -u github.com/Ivory-Chan/caddy_discovery_plugin
 
 本项目作为caddy的插件使用，具体使用方式可以参考caddy官方文档
 
-#### Part.2 配置
+#### Part.3 配置
 
 本插件在caddy的module配置中属于dynamic_upstreams模块的一种扩展，配置层级处于dynamic_upstreams结构下级位置
 
@@ -72,7 +72,7 @@ go get -u github.com/Ivory-Chan/caddy_discovery_plugin
 
 ```
 
-#### Part.2 Caddy 配置示例
+#### Part.4 Caddy 配置示例
 ```json
 {
   "apps": {
