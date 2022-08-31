@@ -1,0 +1,61 @@
+{
+  "apps": {
+    "http": {
+      "servers": {
+        "auth": {
+          "@id": "service.auth.http",
+          "listen": [
+            ":9000"
+          ],
+          "routes": [
+            {
+              "match": [
+                {
+                  "path": [
+                    "/service/*"
+                  ]
+                }
+              ],
+              "handle": [
+                {
+                  "handler": "subroute",
+                  "routes": [
+                    {
+                      "match": [
+                        {
+                          "path": [
+                            "*auth/*"
+                          ]
+                        }
+                      ],
+                      "handle": [
+                        {
+                          "handler": "reverse_proxy",
+                          "rewrite": {
+                            "strip_path_prefix": "/service/auth"
+                          },
+                          "dynamic_upstreams": {
+                            "source": "discovery",
+                            "service": "auth.http",
+                            "refresh": "1m",
+                            "config": {
+                              "nacos": {
+                                "addr": "localhost",
+                                "port": 8848,
+                                "namespaceId": "public"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
